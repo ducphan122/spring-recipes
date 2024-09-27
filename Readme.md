@@ -25,4 +25,40 @@ What you’ll do and what you’ll learn
 `./gradlew bootRun`
 
 - Following this: https://www.digitalsanctuary.com/java/springboot-devtools-auto-restart-and-live-reload.html, but somehow the bootrun is not working hot reload, we have to start the project as debug. In cursor,
-vi no bi bug ntn nen se co 2 project, chon cai dau tien, qan trong la luc no restart ko được tạo thêm bất kì cái beans nào
+  vi no bi bug ntn nen se co 2 project, chon cai dau tien, qan trong la luc no restart ko được tạo thêm bất kì cái beans nào
+
+## API
+
+- POST /api/recipe/new
+  {
+  "name": "Fresh Mint Tea",
+  "description": "Light, aromatic and refreshing beverage...",
+  "ingredients": [
+  "boiled water",
+  "honey",
+  "fresh mint leaves"
+  ],
+  "directions": [
+  "Boil water",
+  "Pour boiling hot water into a mug",
+  "Add fresh mint leaves",
+  "Mix and let the mint leaves seep for 3-5 minutes",
+  "Add honey and mix again"
+  ]
+  }
+  Response: 200, body: {
+  "id": 1
+  }
+
+- GET /api/recipe/{id}
+  Response: 200, body: {...}
+
+- DELETE /api/recipe/{id}
+  Response: 204
+
+## Stage 3
+
+Store all recipes permanently in a database: after a server restart, all added recipes should be available to a user;
+
+- Implement a new DELETE /api/recipe/{id} endpoint. It deletes a recipe with a specified {id}. The server should respond with the 204 (No Content) status code. If a recipe with a specified id does not exist, the server should return 404 (Not found);
+- The service should accept only valid recipes – all fields are obligatory, name and description shouldn't be blank, and JSON arrays should contain at least one item. If a recipe doesn't meet these requirements, the service should respond with the 400 (Bad Request) status code.
