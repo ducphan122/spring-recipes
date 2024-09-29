@@ -1,5 +1,6 @@
 package recipes.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,4 +30,9 @@ public class RecipeDTO {
 
   @NotEmpty(message = "Directions list cannot be empty")
   private List<String> directions;
+
+  @NotBlank(message = "Category is required")
+  private String category;
+
+  private LocalDateTime date;
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Table(name = "recipes")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recipe {
@@ -30,10 +31,19 @@ public class Recipe {
   @Column
   private List<String> directions;
 
-  public Recipe(String name, String description, List<String> ingredients, List<String> directions) {
+  @Column
+  private String category;
+
+  @Column
+  private LocalDateTime date;
+
+  public Recipe(String name, String description, List<String> ingredients, List<String> directions, String category,
+      LocalDateTime date) {
     this.name = name;
     this.description = description;
     this.ingredients = ingredients;
     this.directions = directions;
+    this.category = category;
+    this.date = date;
   }
 }

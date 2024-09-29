@@ -3,7 +3,9 @@ package recipes.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+
 import recipes.exception.NoSuchRecipeException;
 import recipes.mapper.RecipeMapper;
 import recipes.model.RecipeDTO;
@@ -27,6 +29,7 @@ public class RecipeService {
   }
 
   public RecipeDTO saveRecipe(RecipeDTO recipeDTO) {
+    recipeDTO.setDate(LocalDateTime.now());
     return recipeMapper.toRecipeDTO(recipeRepository.save(recipeMapper.toRecipe(recipeDTO)));
   }
 

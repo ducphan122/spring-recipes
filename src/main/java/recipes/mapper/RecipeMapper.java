@@ -13,11 +13,13 @@ import recipes.repository.entity.Recipe;
 public class RecipeMapper {
   public RecipeDTO toRecipeDTO(Recipe recipe) {
     return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getDescription(),
-        new ArrayList<>(recipe.getIngredients()), new ArrayList<>(recipe.getDirections()));
+        new ArrayList<>(recipe.getIngredients()), new ArrayList<>(recipe.getDirections()), recipe.getCategory(),
+        recipe.getDate());
   }
 
   public Recipe toRecipe(RecipeDTO recipeDTO) {
     return new Recipe(recipeDTO.getName(), recipeDTO.getDescription(),
-        new ArrayList<>(recipeDTO.getIngredients()), new ArrayList<>(recipeDTO.getDirections()));
+        new ArrayList<>(recipeDTO.getIngredients()), new ArrayList<>(recipeDTO.getDirections()),
+        recipeDTO.getCategory(), recipeDTO.getDate());
   }
 }
