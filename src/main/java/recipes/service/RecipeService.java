@@ -33,6 +33,18 @@ public class RecipeService {
     return recipeMapper.toRecipeDTO(recipeRepository.save(recipeMapper.toRecipe(recipeDTO)));
   }
 
+  public RecipeDTO updateRecipe(Long id, RecipeDTO recipeDTO) throws NoSuchRecipeException {
+    Recipe existingRecipe = recipeRepository.findById(id)
+        .orElseThrow(NoSuchRecipeException::new);
+
+    Recipe updatedRecipe = recipeMapper.toRecipe(recipeDTO);
+    updatedRecipe.setId(existingRecipe.getId());
+    updatedRecipe.setDate(LocalDateTime.now());
+    Recipe savedRecipe = recipeRepository.save(updatedRecipe);
+
+    return recipeMapper.toRecipeDTO(savedRecipe);
+  }
+
   public void deleteRecipe(Long id) throws NoSuchRecipeException {
     Optional<Recipe> recipe = recipeRepository.findById(id);
     if (recipe.isPresent()) {

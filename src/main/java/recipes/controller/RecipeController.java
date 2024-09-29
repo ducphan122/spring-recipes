@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import jakarta.validation.Valid;
 
 import recipes.model.RecipeDTO;
@@ -42,6 +43,16 @@ public class RecipeController {
       return new ResponseEntity<>(Map.of("id", result.getId()), HttpStatus.OK);
     } catch (IllegalArgumentException e) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable("id") Long id, @Valid @RequestBody RecipeDTO recipeDTO) {
+    try {
+      RecipeDTO updatedRecipe = recipeService.updateRecipe(id, recipeDTO);
+      return new ResponseEntity<>(updatedRecipe, HttpStatus.OK);
+    } catch (NoSuchRecipeException e) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
 
