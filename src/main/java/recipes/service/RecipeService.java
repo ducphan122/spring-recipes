@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import recipes.exception.NoSuchRecipeException;
 import recipes.mapper.RecipeMapper;
@@ -26,6 +28,25 @@ public class RecipeService {
     } else {
       throw new NoSuchRecipeException();
     }
+  }
+
+  public List<RecipeDTO> searchRecipes(String category, String name) {
+    List<Recipe> recipes;
+    if (category != null && name != null) {
+      recipes = recipeRepository.findByCategoryIgnoreCaseAndNameContainingIgnoreCaseOrderByDateDesc(category, name);
+    } else if (category != null) {
+      recipes = recipeRepository.findByCategoryIgnoreCaseOrderByDateDesc(category);
+    } else if (name != null) {
+      recipes = recipeRepository.findByNameContainingIgnoreCaseOrderByDateDesc(name);
+    } else {
+      recipes = new ArrayList<>();
+    }
+    return Optional.of(recipes)
+        .filter(list -> !list.isEmpty())
+        .map(list -> list.stream()
+            .map(recipeMapper::toRecipeDTO)
+            .toList())
+        .orElse(new ArrayList<>());
   }
 
   public RecipeDTO saveRecipe(RecipeDTO recipeDTO) {

@@ -2,6 +2,7 @@ package recipes.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import recipes.model.RecipeDTO;
@@ -33,6 +35,18 @@ public class RecipeController {
       return new ResponseEntity<>(result, HttpStatus.OK);
     } catch (NoSuchRecipeException e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<List<RecipeDTO>> searchRecipes(
+      @RequestParam(value = "category", required = false) String category,
+      @RequestParam(value = "name", required = false) String name) {
+    try {
+      List<RecipeDTO> result = recipeService.searchRecipes(category, name);
+      return new ResponseEntity<>(result, HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
   }
 
