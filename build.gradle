@@ -15,6 +15,7 @@ java {
 
 repositories {
 	mavenCentral()
+	 maven { url 'https://jitpack.io' }	
 }
 
 dependencies {
@@ -30,13 +31,36 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework:spring-context'
 
 	runtimeOnly 'com.h2database:h2'
+
+	testImplementation 'com.github.hyperskill:hs-test:release-SNAPSHOT'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java']
+		}
+		resources {
+			srcDirs = ['src/main/resources']
+		}
+	}
+	test {
+		java {
+			srcDirs = ['src/test/java']
+		}
+		resources {
+			srcDirs = ['src/test/resources']
+		}
+	}
 }
 
 bootRun {
