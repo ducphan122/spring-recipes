@@ -9,6 +9,8 @@ import recipes.repository.entity.Recipe;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+  boolean existsByIdAndAuthorId(Long id, Long authorId);
+
   List<Recipe> findByCategoryIgnoreCaseOrderByDateDesc(String category);
 
   List<Recipe> findByNameContainingIgnoreCaseOrderByDateDesc(String name);

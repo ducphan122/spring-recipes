@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.Authentication;
 import jakarta.validation.Valid;
 
 import recipes.model.RecipeDTO;
 import recipes.service.RecipeService;
+import recipes.service.UserService;
+import recipes.model.UserDTO;
 import recipes.exception.NoSuchRecipeException;
 
 @RestController
@@ -27,6 +30,8 @@ import recipes.exception.NoSuchRecipeException;
 public class RecipeController {
   @Autowired
   RecipeService recipeService;
+  @Autowired
+  UserService userService;
 
   @GetMapping("/{id}")
   public ResponseEntity<RecipeDTO> getRecipe(@PathVariable("id") Long id) {

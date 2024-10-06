@@ -37,13 +37,18 @@ public class Recipe {
   @Column
   private LocalDateTime date;
 
+  @ManyToOne
+  @JoinColumn(name = "author_id")
+  private User author;
+
   public Recipe(String name, String description, List<String> ingredients, List<String> directions, String category,
-      LocalDateTime date) {
+      LocalDateTime date, User author) {
     this.name = name;
     this.description = description;
     this.ingredients = ingredients;
     this.directions = directions;
     this.category = category;
     this.date = date;
+    this.author = author;
   }
 }

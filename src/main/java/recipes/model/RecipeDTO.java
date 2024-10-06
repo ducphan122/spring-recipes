@@ -35,4 +35,6 @@ public class RecipeDTO {
   private String category;
 
   private LocalDateTime date;
+
+  private AuthorDTO author;
 }
